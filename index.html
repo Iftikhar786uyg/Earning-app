@@ -650,6 +650,19 @@
                     alert('Invalid username or password!');
                 }
             } else {
+                // Add this at the very start of your script (before any function)
+let investments = JSON.parse(localStorage.getItem('investments')) || [];
+let balance = parseFloat(localStorage.getItem('balance')) || 10000;
+let isLoggedIn = !!localStorage.getItem('loggedInUser');
+
+// Run initial setup based on login state
+if (isLoggedIn) {
+    showMainContent();
+    updateStats();
+    updateEarningsList();
+} else {
+    showAuthSection();
+}
                 // Sign Up
                 const users = JSON.parse(localStorage.getItem('users')) || [];
                 const userExists = users.some(u => u.username === username);
