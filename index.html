@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exotic Office Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #000;
+        }
+
+        .header h1 span {
+            color: #00cc00;
+        }
+
+        /* Navigation Icons */
+        .nav-icons {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            background-color: #fff;
+            margin: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-icons div {
+            text-align: center;
+            color: #666;
+        }
+
+        .nav-icons i {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: #00cc00;
+        }
+
+        .nav-icons p {
+            font-size: 12px;
+        }
+
+        /* Investment Cards */
+        .investment-container {
+            padding: 10px;
+        }
+
+        .investment-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .investment-card img {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+        }
+
+        .investment-details h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .investment-details p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .invest-button {
+            background-color: #00cc00;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .whatsapp-btn {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            background-color: #25D366;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .whatsapp-btn i {
+            color: #fff;
+            font-size: 20px;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .bottom-nav div {
+            text-align: center;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .bottom-nav i {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .bottom-nav p {
+            font-size: 12px;
+        }
+
+        .bottom-nav .active i {
+            color: #00cc00;
+        }
+
+        /* Auth Section */
+        #auth-section {
+            padding: 20px;
+            background-color: #fff;
+            height: 100vh;
+        }
+
+        #auth-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #auth-section input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #auth-section button {
+            width: 100%;
+            padding: 10px;
+            background-color: #00cc00;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #auth-section p {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        #auth-section a {
+            color: #00cc00;
+            text-decoration: none;
+        }
+
+        /* Hidden by default */
+        .earnings-container, .my-container {
+            display: none;
+            padding: 10px;
+        }
+
+        .my-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .my-card h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .my-card p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+      </style>
+</head>
+<body>
+    <!-- Authentication Section -->
+    <div id="auth-section">
+        <div id="signup-form">
+            <h2>Signup</h2>
+            <input type="text" id="signup-username" placeholder="Username" required>
+            <input type="text" id="signup-mobile" placeholder="Mobile Number (+923001234567)" required>
+            <button id="signup-btn">Signup</button>
+            <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+        </div>
+        <div id="login-form" style="display: none;">
+            <h2>Login</h2>
+            <input type="text" id="login-mobile" placeholder="Mobile Number (+923001234567)" required>
+            <button id="login-btn">Login</button>
+            <p>Don't have an account? <a href="#" id="show-signup">Signup</a></p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" style="display: none;">
+        <div class="header">
+            <h1>EXOTIC <span>OFFICE SOLUTIONS</span></h1>
+        </div>
+
+        <div class="nav-icons">
+            <div>
+                <i class="fas fa-calendar-alt"></i>
+                <p>Entrar</p>
+            </div>
+            <div>
+                <i class="fas fa-wallet"></i>
+                <p>Recharge</p>
+            </div>
+            <div>
+                <i class="fas fa-users"></i>
+                <p>Team</p>
+            </div>
+            <div>
+                <i class="fas fa-cloud-download-alt"></i>
+                <p>Download</p>
+            </div>
+        </div>
+
+        <div class="investment-container" id="investment-section">
+            <div class="investment-card">
+                <img src="https://via.placeholder.com/60" alt="Exotic-7">
+                <div class="investment-details">
+                    <h3>Exotic-7</h3>
+                    <p>90 DAYS</p>
+                    <p>Rs. 16,500</p>
+                    <p>Rs. 5000</p>
+                </div>
+                <button class="invest-button" data-name="Exotic-7" data-price="5000" data-profit="16500">Invest Now</button>
+                <div class="whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+            </div>
+            <div class="investment-card">
+                <img src="https://via.placeholder.com/60" alt="Exotic-5">
+                <div class="investment-details">
+                    <h3>Exotic-5</h3>
+                    <p>90 DAYS</p>
+                    <p>Rs. 3,525</p>
+                    <p>Rs. 12000</p>
+                </div>
+                <button class="invest-button" data-name="Exotic-5" data-price="12000" data-profit="3525">Invest Now</button>
+            </div>
+            <div class="investment-card">
+                <img src="https://via.placeholder.com/60" alt="Exotic-6">
+                <div class="investment-details">
+                    <h3>Exotic-6</h3>
+                    <p>90 DAYS</p>
+                    <p>Rs. 10,000</p>
+                    <p>Rs. 3000</p>
+                </div>
+                <button class="invest-button" data-name="Exotic-6" data-price="3000" data-profit="10000">Invest Now</button>
+            </div>
+        </div>
+
+        <div class="earnings-container" id="earnings-section">
+            <div id="earnings-list"></div>
+        </div>
+
+        <div class="my-container" id="my-section">
+            <div class="my-card">
+                <h2>My Account</h2>
+                <p>Balance: Rs. <span id="balance">10000</span></p>
+                <p>Total Investments: <span id="total-investments">0</span></p>
+                <p>Total Earnings: <span id="total-earnings">0</span></p>
+                <button class="logout-btn">Logout</button>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item active" data-section="investment-section">
+                <i class="fas fa-home"></i>
+                <p>Home</p>
+            </div>
+            <div class="nav-item" data-section="earnings-section">
+                <i class="fas fa-chart-line"></i>
+                <p>Earnings</p>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-gift"></i>
+                <p>Tasks</p>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-share-alt"></i>
+                <p>Share</p>
+            </div>
+            <div class="nav-item" data-section="my-section">
+                <i class="fas fa-user"></i>
+                <p>My</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let isLoggedIn = false;
+        let currentUser = null;
+
+        const signupBtn = document.getElementById('signup-btn');
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.querySelector('.logout-btn');
+
+        // Show Login/Signup
+        document.getElementById('show-login').addEventListener('click', () => {
+            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+        });
+        document.getElementById('show-signup').addEventListener('click', () => {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'block';
+        });
+
+        // Validate Pakistani Mobile Number
+        function isValidPakMobile(mobile) {
+            const regex = /^\+923[0-4][0-9]{7}$/; // e.g., +923001234567
+            return regex.test(mobile);
+        }
+
+        // Simulate OTP Sending
+        function sendOtp(mobile) {
+            const generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+            console.log(`OTP sent to ${mobile}: ${generatedOtp}`);
+            alert(`OTP sent to ${mobile}. Check console for OTP (simulation).`);
+        }
+
+        // Save user data to localStorage
+        function saveUserData() {
+            if (currentUser) {
+                const userIndex = users.findIndex(u => u.username === currentUser.username);
+                if (userIndex !== -1) {
+                    users[userIndex] = currentUser;
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+            }
+        }
+
+        // Handle Signup
+        signupBtn.addEventListener('click', () => {
+            const username = document.getElementById('signup-username').value;
+            const mobile = document.getElementById('signup-mobile').value;
+
+            if (!username || !mobile) {
+                alert('Please fill all fields!');
+                return;
+            }
+
+            if (!isValidPakMobile(mobile)) {
+                alert('Please enter a valid Pakistani mobile number (e.g., +923001234567)');
+                return;
+            }
+
+            if (users.some(user => user.username === username || user.mobile === mobile)) {
+                alert('Username or Mobile already exists!');
+            } else {
+                sendOtp(mobile);
+                currentUser = { username, mobile, balance: 10000, investments: [] };
+                users.push(currentUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('loggedInUser', username);
+                isLoggedIn = true;
+                showMainContent();
+                updateStats();
+            }
+        });
+
+        // Handle Login
+        loginBtn.addEventListener('click', () => {
+            const mobile = document.getElementById('login-mobile').value;
+
+            if (!isValidPakMobile(mobile)) {
+                alert('Please enter a valid Pakistani mobile number (e.g., +923001234567)');
+                return;
+            }
+
+            const user = users.find(user => user.mobile === mobile);
+            if (user) {
+                sendOtp(mobile);
+                currentUser = user;
+                localStorage.setItem('loggedInUser', user.username);
+                isLoggedIn = true;
+                showMainContent();
+                updateStats();
+                updateEarningsList();
+            } else {
+                alert('Mobile number not registered!');
+            }
+        });
+
+        // Handle Logout
+        logoutBtn.addEventListener('click', () => {
+            saveUserData();
+            localStorage.removeItem('loggedInUser');
+            isLoggedIn = false;
+            currentUser = null;
+            showAuthSection();
+        });
+
+        // Add functionality to the "Invest Now" buttons
+        document.querySelectorAll('.invest-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const name = button.getAttribute('data-name');
+                const profit = parseInt(button.getAttribute('data-profit'));
+                const price = parseInt(button.getAttribute('data-price'));
+
+                if (currentUser && currentUser.balance >= price) {
+                    currentUser.balance -= price;
+                    currentUser.investments.push({ name, profit, price });
+                    saveUserData();
+                    updateEarningsList();
+                    updateStats();
+                    alert(`Invested in ${name}! Check your earnings in the Earnings section.`);
+                } else {
+                    alert(`Insufficient Balance! You need Rs. ${price}, but you have Rs. ${currentUser ? currentUser.balance : 0}.`);
+                }
+            });
+        });
+
+        // Function to update the earnings list
+        function updateEarningsList() {
+            const earningsList = document.getElementById('earnings-list');
+            earningsList.innerHTML = '';
+            if (!currentUser || currentUser.investments.length === 0) {
+                earningsList.innerHTML = '<p style="text-align: center; color: #666;">No investments yet.</p>';
+                return;
+            }
+            currentUser.investments.forEach(investment => {
+                const dailyProfit = (investment.profit / 90).toFixed(2); // Assuming 90 days
+                const earningsCard = document.createElement('div');
+                earningsCard.classList.add('investment-card');
+                earningsCard.innerHTML = `
+                    <div class="investment-details">
+                        <h3>${investment.name}</h3>
+                        <p>Investment Amount: Rs. ${investment.price}</p>
+                        <p>Total Profit: Rs. ${investment.profit}</p>
+                        <p>Daily Profit: Rs. ${dailyProfit}</p>
+                    </div>
+                `;
+                earningsList.appendChild(earningsCard);
+            });
+        }
+
+        // Hourly earnings system
+        function addHourlyEarnings() {
+            if (!currentUser || currentUser.investments.length === 0 || !isLoggedIn) return;
+            let totalHourlyProfit = 0;
+            currentUser.investments.forEach(investment => {
+                const dailyProfit = investment.profit / 90; // 90 days
+                const hourlyProfit = dailyProfit / 24;
+                totalHourlyProfit += hourlyProfit;
+            });
+            currentUser.balance += totalHourlyProfit;
+            saveUserData();
+            updateStats();
+        }
+
+        // Run hourly earnings every hour
+        setInterval(addHourlyEarnings, 3600 * 1000);
+
+        // Show Main Content
+        function showMainContent() {
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        }
+
+        // Show Auth Section
+        function showAuthSection() {
+            document.getElementById('auth-section').style.display = 'block';
+            document.getElementById('main-content').style.display = 'none';
+        }
+
+        // Update Stats
+        function updateStats() {
+            if (currentUser) {
+                document.getElementById('balance').textContent = currentUser.balance.toFixed(2);
+                document.getElementById('total-investments').textContent = currentUser.investments.length;
+                let totalEarnings = currentUser.investments.reduce((sum, inv) => sum + (inv.profit || 0), 0);
+                document.getElementById('total-earnings').textContent = totalEarnings.toFixed(2);
+            }
+        }
+
+        // Bottom Navigation
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('.investment-container, .earnings-container, .my-container');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+                sections.forEach(section => section.style.display = 'none');
+                const sectionId = item.getAttribute('data-section');
+                if (sectionId) {
+                    document.getElementById(sectionId).style.display = 'block';
+                }
+            });
+        });
+
+        // Check Login Status on Page Load
+        function checkLoginStatus() {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                currentUser = users.find(user => user.username === loggedInUser);
+                if (currentUser) {
+                    isLoggedIn = true;
+                    showMainContent();
+                    updateStats();
+                    updateEarningsList();
+                }
+            }
+        }
+
+        // Initial Check
+        checkLoginStatus();
+    </script>
+</body>
+</html>
