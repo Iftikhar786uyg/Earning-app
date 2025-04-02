@@ -18,12 +18,63 @@
             color: #333;
         }
 
+        /* Login/Signup Section */
+        .auth-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #fff;
+        }
+
+        .auth-container h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .auth-container form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+        }
+
+        .auth-container input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .auth-container button {
+            padding: 10px;
+            background: linear-gradient(to right, #ff5e62, #4facfe);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .auth-container button:hover {
+            opacity: 0.9;
+        }
+
+        .auth-container p {
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+        }
+
         /* Header */
         .header {
             text-align: center;
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: none; /* Hidden by default */
         }
 
         .header h1 {
@@ -42,6 +93,7 @@
             padding: 20px;
             background-color: #fff;
             margin-bottom: 10px;
+            display: none; /* Hidden by default */
         }
 
         .nav-icons div {
@@ -58,6 +110,7 @@
         /* Investment Cards */
         .investment-container {
             padding: 10px;
+            display: none; /* Hidden by default */
         }
 
         .investment-card {
@@ -100,7 +153,7 @@
         .price-details {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px; /* Reduced margin to bring button closer */
+            margin-bottom: 10px;
             gap: 30px;
         }
 
@@ -129,7 +182,12 @@
             font-size: 14px;
             width: 100%;
             text-align: center;
-            margin-top: 5px; /* Reduced margin to bring button up */
+            margin-top: 5px;
+        }
+
+        .invest-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
         }
 
         .whatsapp-btn {
@@ -151,13 +209,78 @@
             font-size: 20px;
         }
 
+        /* Earnings Section */
+        .earnings-container {
+            padding: 10px;
+            display: none; /* Hidden by default */
+        }
+
+        .earnings-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .earnings-card h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .earnings-card p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        /* My Section */
+        .my-container {
+            padding: 10px;
+            display: none; /* Hidden by default */
+        }
+
+        .my-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .my-card h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .my-card p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .logout-btn {
+            padding: 10px;
+            background: linear-gradient(to right, #ff5e62, #4facfe);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            text-align: center;
+        }
+
         /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             width: 100%;
             background-color: #fff;
-            display: flex;
+            display: none; /* Hidden by default */
             justify-content: space-around;
             padding: 10px 0;
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
@@ -166,6 +289,7 @@
         .bottom-nav div {
             text-align: center;
             color: #666;
+            cursor: pointer;
         }
 
         .bottom-nav i {
@@ -179,6 +303,17 @@
     </style>
 </head>
 <body>
+    <!-- Login/Signup Section -->
+    <div class="auth-container" id="auth-section">
+        <h2 id="auth-title">Login</h2>
+        <form id="auth-form">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit" id="auth-btn">Login</button>
+        </form>
+        <p id="toggle-auth">Don't have an account? Sign Up</p>
+    </div>
+
     <!-- Header -->
     <div class="header">
         <h1><span>NVIDIA</span> office solutions</h1>
@@ -205,7 +340,7 @@
     </div>
 
     <!-- Investment Cards -->
-    <div class="investment-container">
+    <div class="investment-container" id="investment-section">
         <!-- Card 1 -->
         <div class="investment-card">
             <div style="display: flex; align-items: center;">
@@ -225,7 +360,7 @@
                     </div>
                 </div>
             </div>
-            <button class="invest-button">Invest Now</button>
+            <button class="invest-button" data-name="Nvidia-1" data-profit="60" data-price="500">Invest Now</button>
             <div class="whatsapp-btn">
                 <i class="fab fa-whatsapp"></i>
             </div>
@@ -250,7 +385,7 @@
                     </div>
                 </div>
             </div>
-            <button class="invest-button">Invest Now</button>
+            <button class="invest-button" data-name="Nvidia-2" data-profit="250" data-price="900">Invest Now</button>
         </div>
 
         <!-- Card 3 -->
@@ -272,7 +407,7 @@
                     </div>
                 </div>
             </div>
-            <button class="invest-button">Invest Now</button>
+            <button class="invest-button" data-name="Nvidia-3" data-profit="700" data-price="2500">Invest Now</button>
         </div>
 
         <!-- Card 4 -->
@@ -294,7 +429,7 @@
                     </div>
                 </div>
             </div>
-            <button class="invest-button">Invest Now</button>
+            <button class="invest-button" data-name="Nvidia-4" data-profit="1800" data-price="6000">Invest Now</button>
         </div>
 
         <!-- Card 5 -->
@@ -316,7 +451,7 @@
                     </div>
                 </div>
             </div>
-            <button class="invest-button">Invest Now</button>
+            <button class="invest-button" data-name="Nvidia-5" data-profit="3800" data-price="12000">Invest Now</button>
         </div>
 
         <!-- Card 6 -->
@@ -338,7 +473,7 @@
                     </div>
                 </div>
             </div>
-            <button class="invest-button">Invest Now</button>
+            <button class="invest-button" data-name="Nvidia-6" data-profit="8800" data-price="25000">Invest Now</button>
         </div>
 
         <!-- Card 7 -->
@@ -360,46 +495,287 @@
                     </div>
                 </div>
             </div>
-            <button class="invest-button">Invest Now</button>
+            <button class="invest-button" data-name="Nvidia-7" data-profit="20000" data-price="50000">Invest Now</button>
+        </div>
+    </div>
+
+    <!-- Earnings Section -->
+    <div class="earnings-container" id="earnings-section">
+        <h2 style="text-align: center; margin-bottom: 15px;">Your Earnings</h2>
+        <div id="earnings-list">
+            <!-- Earnings will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- My Section -->
+    <div class="my-container" id="my-section">
+        <div class="my-card">
+            <h2>My Profile</h2>
+            <p>Current Balance: Rs. <span id="balance-amount">10000</span></p>
+            <p>Total Investments: <span id="total-investments">0</span></p>
+            <p>Total Daily Profit: Rs. <span id="total-profit">0</span></p>
+            <p>Total Hourly Profit: Rs. <span id="hourly-profit">0</span></p>
+            <button class="logout-btn" id="logout-btn">Logout</button>
         </div>
     </div>
 
     <!-- Bottom Navigation -->
     <div class="bottom-nav">
-        <div class="active">
+        <div class="nav-item active" data-section="investment-section">
             <i class="fas fa-home"></i>
             <p>Home</p>
         </div>
-        <div>
+        <div class="nav-item" data-section="earnings-section">
             <i class="fas fa-wallet"></i>
             <p>Earnings</p>
         </div>
-        <div>
+        <div class="nav-item">
             <i class="fas fa-tasks"></i>
             <p>Tasks</p>
         </div>
-        <div>
+        <div class="nav-item">
             <i class="fas fa-share-alt"></i>
             <p>Share</p>
         </div>
-        <div>
+        <div class="nav-item" data-section="my-section">
             <i class="fas fa-user"></i>
             <p>My</p>
         </div>
     </div>
 
     <script>
+        // Initial balance
+        let balance = 10000; // Starting balance: Rs. 10,000
+        let investments = [];
+        let isLoggedIn = false;
+
+        // DOM Elements for Auth
+        const authSection = document.getElementById('auth-section');
+        const authTitle = document.getElementById('auth-title');
+        const authForm = document.getElementById('auth-form');
+        const authBtn = document.getElementById('auth-btn');
+        const toggleAuth = document.getElementById('toggle-auth');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const logoutBtn = document.getElementById('logout-btn');
+
+        // DOM Elements for Main Content
+        const header = document.querySelector('.header');
+        const navIcons = document.querySelector('.nav-icons');
+        const investmentSection = document.getElementById('investment-section');
+        const earningsSection = document.getElementById('earnings-section');
+        const mySection = document.getElementById('my-section');
+        const bottomNav = document.querySelector('.bottom-nav');
+
+        // Update balance and stats display
+        const balanceElement = document.getElementById('balance-amount');
+        const totalInvestmentsElement = document.getElementById('total-investments');
+        const totalProfitElement = document.getElementById('total-profit');
+        const hourlyProfitElement = document.getElementById('hourly-profit');
+
+        function updateStats() {
+            balanceElement.textContent = balance.toFixed(2);
+            totalInvestmentsElement.textContent = investments.length;
+            const totalDailyProfit = investments.reduce((sum, inv) => sum + parseInt(inv.profit), 0);
+            totalProfitElement.textContent = totalDailyProfit;
+            const totalHourlyProfit = totalDailyProfit / 24;
+            hourlyProfitElement.textContent = totalHourlyProfit.toFixed(2);
+
+            // Enable/Disable Invest Now buttons based on balance
+            document.querySelectorAll('.invest-button').forEach(button => {
+                const price = parseInt(button.getAttribute('data-price'));
+                button.disabled = balance < price;
+            });
+        }
+
+        // Check if user is already logged in
+        function checkLoginStatus() {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                isLoggedIn = true;
+                showMainContent();
+                updateStats();
+            } else {
+                showAuthSection();
+            }
+        }
+
+        // Show Auth Section
+        function showAuthSection() {
+            authSection.style.display = 'flex';
+            header.style.display = 'none';
+            navIcons.style.display = 'none';
+            investmentSection.style.display = 'none';
+            earningsSection.style.display = 'none';
+            mySection.style.display = 'none';
+            bottomNav.style.display = 'none';
+        }
+
+        // Show Main Content
+        function showMainContent() {
+            authSection.style.display = 'none';
+            header.style.display = 'block';
+            navIcons.style.display = 'flex';
+            investmentSection.style.display = 'block';
+            earningsSection.style.display = 'none';
+            mySection.style.display = 'none';
+            bottomNav.style.display = 'flex';
+        }
+
+        // Toggle between Login and Signup
+        let isLoginMode = true;
+        toggleAuth.addEventListener('click', () => {
+            isLoginMode = !isLoginMode;
+            authTitle.textContent = isLoginMode ? 'Login' : 'Sign Up';
+            authBtn.textContent = isLoginMode ? 'Login' : 'Sign Up';
+            toggleAuth.textContent = isLoginMode ? "Don't have an account? Sign Up" : 'Already have an account? Login';
+        });
+
+        // Handle Login/Signup
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (isLoginMode) {
+                // Login
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const user = users.find(u => u.username === username && u.password === password);
+                if (user) {
+                    localStorage.setItem('loggedInUser', username);
+                    isLoggedIn = true;
+                    showMainContent();
+                    updateStats();
+                } else {
+                    alert('Invalid username or password!');
+                }
+            } else {
+                // Sign Up
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const userExists = users.some(u => u.username === username);
+                if (userExists) {
+                    alert('Username already exists! Please choose another.');
+                } else {
+                    users.push({ username, password });
+                    localStorage.setItem('users', JSON.stringify(users));
+                    localStorage.setItem('loggedInUser', username);
+                    isLoggedIn = true;
+                    showMainContent();
+                    updateStats();
+                }
+            }
+        });
+
+        // Handle Logout
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('loggedInUser');
+            isLoggedIn = false;
+            showAuthSection();
+            investments = []; // Reset investments on logout
+            balance = 10000; // Reset balance on logout
+        });
+
         // Add functionality to the "Invest Now" buttons
         document.querySelectorAll('.invest-button').forEach(button => {
             button.addEventListener('click', () => {
-                alert('Invest Now clicked!');
+                const name = button.getAttribute('data-name');
+                const profit = parseInt(button.getAttribute('data-profit'));
+                const price = parseInt(button.getAttribute('data-price'));
+
+                // Check if balance is sufficient
+                if (balance >= price) {
+                    // Deduct the price from balance
+                    balance -= price;
+
+                    // Add investment to the array
+                    investments.push({ name, profit, price });
+
+                    // Update the earnings list and stats
+                    updateEarningsList();
+                    updateStats();
+
+                    alert(`Invested in ${name}! Check your earnings in the Earnings section.`);
+                } else {
+                    alert(`Insufficient Balance! You need Rs. ${price}, but you have Rs. ${balance}.`);
+                }
             });
         });
+
+        // Function to update the earnings list
+        function updateEarningsList() {
+            const earningsList = document.getElementById('earnings-list');
+            earningsList.innerHTML = ''; // Clear previous entries
+
+            if (investments.length === 0) {
+                earningsList.innerHTML = '<p style="text-align: center; color: #666;">No investments yet.</p>';
+                return;
+            }
+
+            investments.forEach(investment => {
+                const hourlyProfit = (investment.profit / 24).toFixed(2);
+                const earningsCard = document.createElement('div');
+                earningsCard.classList.add('earnings-card');
+                earningsCard.innerHTML = `
+                    <h3>${investment.name}</h3>
+                    <p>Investment Amount: Rs. ${investment.price}</p>
+                    <p>Daily Profit: Rs. ${investment.profit}</p>
+                    <p>Hourly Profit: Rs. ${hourlyProfit}</p>
+                `;
+                earningsList.appendChild(earningsCard);
+            });
+        }
+
+        // Hourly earnings system
+        function addHourlyEarnings() {
+            if (investments.length === 0 || !isLoggedIn) return;
+
+            let totalHourlyProfit = 0;
+            investments.forEach(investment => {
+                const hourlyProfit = investment.profit / 24;
+                totalHourlyProfit += hourlyProfit;
+            });
+
+            balance += totalHourlyProfit;
+            updateStats();
+            console.log(`Hourly earnings added: Rs. ${totalHourlyProfit.toFixed(2)}. New balance: Rs. ${balance.toFixed(2)}`);
+        }
+
+        // Run hourly earnings every hour (3600 seconds)
+        setInterval(addHourlyEarnings, 3600 * 1000);
+
+        // For testing: Run every 10 seconds instead of every hour
+        // setInterval(addHourlyEarnings, 10 * 1000);
 
         // Add functionality to the WhatsApp button
         document.querySelector('.whatsapp-btn').addEventListener('click', () => {
             window.open('https://wa.me/', '_blank');
         });
+
+        // Bottom navigation functionality
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('.investment-container, .earnings-container, .my-container');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove active class from all nav items
+                navItems.forEach(nav => nav.classList.remove('active'));
+                // Add active class to clicked nav item
+                item.classList.add('active');
+
+                // Hide all sections
+                sections.forEach(section => section.style.display = 'none');
+
+                // Show the selected section
+                const sectionId = item.getAttribute('data-section');
+                if (sectionId) {
+                    document.getElementById(sectionId).style.display = 'block';
+                }
+            });
+        });
+
+        // Check login status on page load
+        checkLoginStatus();
     </script>
 </body>
-    </html>
+</html>
+        
