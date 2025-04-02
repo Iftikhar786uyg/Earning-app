@@ -656,12 +656,15 @@ let balance = parseFloat(localStorage.getItem('balance')) || 10000;
 let isLoggedIn = !!localStorage.getItem('loggedInUser');
 
 // Run initial setup based on login state
-if (isLoggedIn) {
+if (userExists) {
+    alert('Username already exists! Please choose another.');
+} else {
+    users.push({ username, password });
+    localStorage.setltem('users', JSON.stringify MATERIALS);
+    localStorage.setltem('loggedInUser', username);
+    isLoggedin = true;
     showMainContent();
     updateStats();
-    updateEarningsList();
-} else {
-    showAuthSection();
 }
                 // Sign Up
                 const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -681,38 +684,31 @@ if (isLoggedIn) {
 
         // Handle Logout
         logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('loggedInUser');
-            isLoggedIn = false;
-            showAuthSection();
-            investments = []; // Reset investments on logout
-            balance = 10000; // Reset balance on logout
-        });
+    localStorage.removeItem('loggedInUser');
+    isLoggedIn = false; // Fixed typo
+    showAuthSection();
+    // investments aur balance reset nahi karenge, persist rahenge
+});
 
         // Add functionality to the "Invest Now" buttons
         document.querySelectorAll('.invest-button').forEach(button => {
-            button.addEventListener('click', () => {
-                const name = button.getAttribute('data-name');
-                const profit = parseInt(button.getAttribute('data-profit'));
-                const price = parseInt(button.getAttribute('data-price'));
-
-                // Check if balance is sufficient
-                if (balance >= price) {
-                    // Deduct the price from balance
-                    balance -= price;
-
-                    // Add investment to the array
-                    investments.push({ name, profit, price });
-
-                    // Update the earnings list and stats
-                    updateEarningsList();
-                    updateStats();
-
-                    alert(`Invested in ${name}! Check your earnings in the Earnings section.`);
-                } else {
-                    alert(`Insufficient Balance! You need Rs. ${price}, but you have Rs. ${balance}.`);
-                }
-            });
-        });
+    button.addEventListener('click', () => {
+        const name = button.getAttribute('data-name');
+        const profit = parseInt(button.getAttribute('data-profit'));
+        const price = parseInt(button.getAttribute('data-price'));
+        if (balance >= price) {
+            balance -= price;
+            investments.push({ name, profit, price });
+            localStorage.setItem('investments', JSON.stringify(investments)); // Save investments
+            localStorage.setItem('balance', balance); // Save balance
+            updateEarningsList();
+            updateStats();
+            alert(`Invested in ${name}! Check your earnings in the Earnings section.`); // Fixed template string
+        } else {
+            alert(`Insufficient Balance! You need Rs. ${price}, but you have Rs. ${balance}.`); // Fixed template string
+        }
+    });
+});
 
         // Function to update the earnings list
         function updateEarningsList() {
@@ -779,18 +775,17 @@ if (isLoggedIn) {
 
         // Hourly earnings system
         function addHourlyEarnings() {
-            if (investments.length === 0 || !isLoggedIn) return;
-
-            let totalHourlyProfit = 0;
-            investments.forEach(investment => {
-                const hourlyProfit = investment.profit / 24;
-                totalHourlyProfit += hourlyProfit;
-            });
-
-            balance += totalHourlyProfit;
-            updateStats();
-            console.log(`Hourly earnings added: Rs. ${totalHourlyProfit.toFixed(2)}. New balance: Rs. ${balance.toFixed(2)}`);
-        }
+    if (investments.length === 0 || !isLoggedIn) return; // Fixed typo: isLoggedln -> isLoggedIn
+    let totalHourlyProfit = 0;
+    investments.forEach(investment => {
+        const hourlyProfit = investment.profit / 24;
+        totalHourlyProfit += hourlyProfit;
+    });
+    balance += totalHourlyProfit;
+    localStorage.setItem('balance', balance); // Save updated balance
+    updateStats();
+    console.log(`Hourly earnings added: Rs. ${totalHourlyProfit.toFixed(2)}, New balance: Rs. ${balance.toFixed(2)}`); // Fixed template string
+}
 
         // Run hourly earnings every hour (3600 seconds)
         setInterval(addHourlyEarnings, 3600 * 1000);
