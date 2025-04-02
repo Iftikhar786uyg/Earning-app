@@ -703,27 +703,66 @@
 
         // Function to update the earnings list
         function updateEarningsList() {
-            const earningsList = document.getElementById('earnings-list');
-            earningsList.innerHTML = ''; // Clear previous entries
+    const earningsList = document.getElementById('earnings-list');
+    earningsList.innerHTML = ''; // Clear previous entries
+    if (investments.length === 0) {
+        earningsList.innerHTML = '<p style="text-align: center; color: #666;">No investments yet.</p>';
+        return;
+    }
 
-            if (investments.length === 0) {
-                earningsList.innerHTML = '<p style="text-align: center; color: #666;">No investments yet.</p>';
-                return;
-            }
+    investments.forEach(investment => {
+        const hourlyProfit = (investment.profit / 24).toFixed(2);
+        // Calculate working hours
+        const now = new Date();
+        const startTime = new Date(investment.startTime);
+        const hoursWorked = Math.floor((now - startTime) / (1000 * 60 * 60)); // Hours since investment started
+        // Calculate estimated income (assuming 365 days of profit)
+        const estimatedIncome = (investment.profit * 365).toFixed(0);
+        // Format timestamp
+        const timestamp = startTime.toLocaleString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        }).replace(',', '');
 
-            investments.forEach(investment => {
-                const hourlyProfit = (investment.profit / 24).toFixed(2);
-                const earningsCard = document.createElement('div');
-                earningsCard.classList.add('earnings-card');
-                earningsCard.innerHTML = `
-                    <h3>${investment.name}</h3>
-                    <p>Investment Amount: Rs. ${investment.price}</p>
-                    <p>Daily Profit: Rs. ${investment.profit}</p>
-                    <p>Hourly Profit: Rs. ${hourlyProfit}</p>
-                `;
-                earningsList.appendChild(earningsCard);
-            });
-        }
+        const earningsCard = document.createElement('div');
+        earningsCard.classList.add('earnings-card');
+        earningsCard.innerHTML = `
+            <div style="background: #ff6f61; color: white; padding: 5px; border-radius: 10px 10px 0 0; text-align: right; font-size: 12px;">
+                ${timestamp}
+            </div>
+            <div style="padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h3 style="color: #ff6f61; font-size: 24px;">Rs${hourlyProfit}</h3>
+                    <p style="color: #666; font-size: 12px;">HOURLY INCOME</p>
+                </div>
+                <div>
+                    <h3 style="color: #ff6f61; font-size: 24px;">Rs${estimatedIncome}</h3>
+                    <p style="color: #666; font-size: 12px;">ESTIMATED INCOME</p>
+                </div>
+            </div>
+            <div style="padding: 0 10px 10px; display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center;">
+                    <img src="tesla-icon.png" alt="Tesla Icon" style="width: 40px; height: 40px; margin-right: 10px;">
+                    <div>
+                        <h4 style="margin: 0; font-size: 16px;">${investment.name}</h4>
+                        <p style="color: #666; font-size: 12px; margin: 0;">Working For ${hoursWorked} Hours</p>
+                    </div>
+                </div>
+                <button style="background: none; border: 1px solid #ff6f61; color: #ff6f61; padding: 5px 10px; border-radius: 15px; cursor: pointer;">
+                    At Work
+                </button>
+            </div>
+            <div style="background: #1e3a8a; color: white; padding: 5px; border-radius: 0 0 10px 10px; text-align: right; font-size: 12px;">
+                ${timestamp} &nbsp;&nbsp;&nbsp; INCOME: ${investment.incomeCount}
+            </div>
+        `;
+        earningsList.appendChild(earningsCard);
+    });
+}
 
         // Hourly earnings system
         function addHourlyEarnings() {
